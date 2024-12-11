@@ -1,0 +1,368 @@
+{
+    "3.3.1.1": {
+        "rule_class": [
+            "3.3.1"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "操作人",
+                "value": "交易参与人",
+                "operation": "is"
+            },
+            {
+                "key": "交易方式",
+                "value": "竞价交易",
+                "operation": "is"
+            },
+            {
+                "key": "操作",
+                "value": "交易申报",
+                "operation": "is"
+            },
+            {
+                "key": "时间",
+                "value": "{[9:15-9:25],[9:30-11:30],[13:00-15:00]}",
+                "operation": "in"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.1.2": {
+        "rule_class": [
+            "3.3.1"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "操作",
+                "value": "撤单申报",
+                "operation": "is"
+            },
+            {
+                "key": "时间",
+                "value": "{[9:20-9:25],[14:57-15:00]}",
+                "operation": "in"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "不成功",
+                "operation": "is",
+                "else": "成功"
+            }
+        ]
+    },
+    "3.3.1.3": {
+        "rule_class": [
+            "3.3.1"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "操作部分",
+                "value": "未成交申报",
+                "operation": "is"
+            },
+            {
+                "key": "操作",
+                "value": "撤销",
+                "operation": "is"
+            },
+            {
+                "key": "时间",
+                "value": "其他接受交易申报的时间内",
+                "operation": "is"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.6.1": {
+        "rule_class": [
+            "3.3.6"
+        ],
+        "focus": [
+            "时间"
+        ],
+        "constraints": [
+            {
+                "key": "状态",
+                "value": "连续竞价期间",
+                "operation": "is"
+            },
+            {
+                "key": "申报方式",
+                "value": "市价申报",
+                "operation": "is"
+            },
+            {
+                "key": "时间",
+                "value": "连续竞价期间",
+                "operation": "is"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.8.1": {
+        "rule_class": [
+            "3.3.8"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "交易方式",
+                "value": "竞价交易",
+                "operation": "is"
+            },
+            {
+                "key": "操作",
+                "value": "买入",
+                "operation": "is"
+            },
+            {
+                "key": "交易品种",
+                "value": "证券",
+                "operation": "is"
+            },
+            {
+                "key": "申报数量",
+                "value": [
+                    "%",
+                    "100",
+                    "==",
+                    "0"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.8.2": {
+        "rule_class": [
+            "3.3.8"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "证券",
+                "operation": "is"
+            },
+            {
+                "key": "操作",
+                "value": "一次性申报卖出卖出",
+                "operation": "is"
+            },
+            {
+                "key": "数量",
+                "value": [
+                    "<",
+                    "100"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.9.1": {
+        "rule_class": [
+            "3.3.9"
+        ],
+        "focus": [
+            "数量"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "证券",
+                "operation": "is"
+            },
+            {
+                "key": "申报数量",
+                "value": [
+                    "<=",
+                    "1000000"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.11.1": {
+        "rule_class": [
+            "3.3.11"
+        ],
+        "focus": [
+            "价格"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "A股",
+                "operation": "is"
+            },
+            {
+                "key": "申报价格最小变动单位为0.01元",
+                "value": [
+                    "==",
+                    "0.01"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.11.2": {
+        "rule_class": [
+            "3.3.11"
+        ],
+        "focus": [
+            "价格"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "基金",
+                "operation": "is"
+            },
+            {
+                "key": "申报价格最小变动单位",
+                "value": [
+                    "==",
+                    "0.001"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.11.3": {
+        "rule_class": [
+            "3.3.11"
+        ],
+        "focus": [
+            "价格"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "权证",
+                "operation": "is"
+            },
+            {
+                "key": "申报价格最小变动单位",
+                "value": [
+                    "==",
+                    "0.001"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "3.3.11.4": {
+        "rule_class": [
+            "3.3.11"
+        ],
+        "focus": [
+            "价格"
+        ],
+        "constraints": [
+            {
+                "key": "交易品种",
+                "value": "B股",
+                "operation": "is"
+            },
+            {
+                "key": "申报价格最小变动单位",
+                "value": [
+                    "==",
+                    "0.001"
+                ],
+                "operation": "compute"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    }
+}

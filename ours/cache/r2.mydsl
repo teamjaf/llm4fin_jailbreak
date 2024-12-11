@@ -1,0 +1,14 @@
+rule 1.1.1.2.1
+sourceId 1.1.1
+focus: 订单连续性操作
+	if 数量 is '本次' and 约束 is '向下取整的原则' and 操作部分 is '剩余未偿还部分' and 交易市场 is '证券交易所' and 交易品种 is '证券' and 交易方向 is '买入' and 操作 is '申报'
+	then 结果 is '成功' 
+	constraint 少数量不 % 100 == 0
+
+rule 1.1.1.2.2
+sourceId 1.1.1
+focus: 订单连续性操作
+	if 数量 is '本次' and 约束 is '向下取整的原则' and 操作部分 is '剩余未偿还部分' and 交易市场 is '证券交易所' and 交易品种 is '证券' and 交易方向 is '卖出' and 操作 is '申报'
+	then 结果 is '成功' 
+	constraint 少数量不 % 100 == 0
+

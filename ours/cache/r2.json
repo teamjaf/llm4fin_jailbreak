@@ -1,0 +1,128 @@
+{
+    "1.1.1.2.1": {
+        "rule_class": [
+            "1.1.1"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "少数量不",
+                "value": [
+                    "%",
+                    "100",
+                    "==",
+                    "0"
+                ],
+                "operation": "compute"
+            },
+            {
+                "key": "数量",
+                "value": "本次",
+                "operation": "is"
+            },
+            {
+                "key": "约束",
+                "value": "向下取整的原则",
+                "operation": "is"
+            },
+            {
+                "key": "操作部分",
+                "value": "剩余未偿还部分",
+                "operation": "is"
+            },
+            {
+                "key": "交易市场",
+                "operation": "is",
+                "value": "证券交易所"
+            },
+            {
+                "key": "交易品种",
+                "operation": "is",
+                "value": "证券"
+            },
+            {
+                "key": "交易方向",
+                "operation": "is",
+                "value": "买入"
+            },
+            {
+                "key": "操作",
+                "operation": "is",
+                "value": "申报"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    },
+    "1.1.1.2.2": {
+        "rule_class": [
+            "1.1.1"
+        ],
+        "focus": [
+            "订单连续性操作"
+        ],
+        "constraints": [
+            {
+                "key": "少数量不",
+                "value": [
+                    "%",
+                    "100",
+                    "==",
+                    "0"
+                ],
+                "operation": "compute"
+            },
+            {
+                "key": "数量",
+                "value": "本次",
+                "operation": "is"
+            },
+            {
+                "key": "约束",
+                "value": "向下取整的原则",
+                "operation": "is"
+            },
+            {
+                "key": "操作部分",
+                "value": "剩余未偿还部分",
+                "operation": "is"
+            },
+            {
+                "key": "交易市场",
+                "operation": "is",
+                "value": "证券交易所"
+            },
+            {
+                "key": "交易品种",
+                "operation": "is",
+                "value": "证券"
+            },
+            {
+                "key": "交易方向",
+                "operation": "is",
+                "value": "卖出"
+            },
+            {
+                "key": "操作",
+                "operation": "is",
+                "value": "申报"
+            }
+        ],
+        "results": [
+            {
+                "key": "结果",
+                "value": "成功",
+                "operation": "is",
+                "else": "不成功"
+            }
+        ]
+    }
+}

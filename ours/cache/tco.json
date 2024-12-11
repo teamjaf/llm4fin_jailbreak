@@ -1,0 +1,7 @@
+[
+    {
+        "id": "1.1.1",
+        "text": "由此计算的减少数量不为100元面额整数倍时，本次按照向下取整的原则予以偿还，剩余未偿还部分按募集说明书约定存续并享有相应权益。",
+        "label": "O O O O O O B-key I-key I-key I-key O B-数量 I-数量 I-数量 I-数量 I-数量 I-数量 I-数量 I-数量 I-数量 I-数量 O B-数量 I-数量 O O O O B-value I-value I-value I-value I-value O O O O O O O O B-操作部分 I-操作部分 I-操作部分 I-操作部分 O O O O O O O O O O O O O O O O O O"
+    }
+]

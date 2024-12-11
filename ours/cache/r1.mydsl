@@ -1,0 +1,9 @@
+define 交易市场 = 证券交易所
+define 交易品种 = 证券
+
+rule 1.1.1.2
+sourceId 1.1.1
+focus: 订单连续性操作
+	if 少数量不 is "100元面额整数倍时" and 数量 is "本次" and 约束 is "向下取整的原则" and 操作部分 is "剩余未偿还部分"
+	then 结果 is "成功"
+
