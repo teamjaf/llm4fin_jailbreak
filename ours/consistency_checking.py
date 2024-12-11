@@ -36,7 +36,8 @@ def process_result_same_key_same(id1, id2, cons1_keys, cons2_keys, cons1_value, 
         # Check for equality to quickly return if no conflict
         if cons1_value == cons2_value:
             return False, {}
-
+        
+        #regex
         general_diff = False
         other_diff_idx = []
         for vi, v1 in enumerate(cons1_value):
