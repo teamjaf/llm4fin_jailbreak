@@ -1,4 +1,5 @@
 # Final Project of CIS5370 Course Consistency Checking Vulnerabilities and Mitigation
+### Instructor: Professor Ruimin Sun
 ### Team: Md Jafrin Hossain, Raja Shekar Reddy Seelam and Umme Nusrat Jahan
 ### Main Paper and Repo: https://github.com/13luoyu/intelligent-test
 
@@ -187,14 +188,8 @@ except ValueError as e:
 
 ---
 
-## How to Run
-1. Clone the repository.
-2. Run the test cases to verify functionality and security:
-   ```bash
-   python test/test_consistency_checking.py
-   ```
 
 ---
 
 ## Acknowledgments
-This project highlights how proactive measures can prevent potential exploits and maintain system integrity.
+This project is meant to use for the final project code of our course CIS5370. This is for learning purspose and this is not industry ready. 
