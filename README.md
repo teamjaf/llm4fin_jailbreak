@@ -1,4 +1,4 @@
-# Final Project of CIS5370 Course Consistency Checking Vulnerabilities and Mitigation
+# Final Project of CIS5370 
 ### Instructor: Professor Ruimin Sun
 ### Team: Md Jafrin Hossain, Raja Shekar Reddy Seelam and Umme Nusrat Jahan
 ### Main Paper and Repo: https://github.com/13luoyu/intelligent-test
@@ -15,13 +15,8 @@ A jailbreak attack manipulates weaknesses in the logic to:
 
 
 
-# Consistency Checking: Jailbreak Attack Analysis and Mitigation
+## Consistency Checking: Jailbreak Attack Analysis and Mitigation
 
-## Overview
-This repository contains a Python-based rule validation system for identifying and resolving constraint conflicts. 
-However, an initial security review uncovered vulnerabilities that allowed **jailbreak attacks**, enabling malicious inputs to bypass validation, overload the system, and potentially inject harmful scripts.
-
----
 
 ## Security Issues
 
