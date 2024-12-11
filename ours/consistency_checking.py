@@ -8,45 +8,66 @@ import re
 import z3
 
 
+def validate_input(value, max_length=1000, max_list_size=100):
+    """Validate input to prevent resource exhaustion and unsafe formats."""
+    if isinstance(value, str) and len(value) > max_length:
+        raise ValueError(f"Input string too long: {len(value)} characters (max {max_length})")
+    if isinstance(value, list) and len(value) > max_list_size:
+        raise ValueError(f"Input list too large: {len(value)} items (max {max_list_size})")
+    if isinstance(value, str) and any(c in value for c in ['<', '>', '"', "'", ';']):
+        raise ValueError(f"Input string contains potentially dangerous characters: {value}")
+
+
+def safe_regex_match(pattern, text):
+    """Run regex with a safeguard against overly broad patterns."""
+    if len(text) > 1000:  # Arbitrary limit to prevent abuse
+        raise ValueError("Input too long for regex match")
+    return re.fullmatch(pattern, text)
+
+
+
+
 def process_result_same_key_same(id1, id2, cons1_keys, cons2_keys, cons1_value, cons2_value, general_keys):
-    # TODO 这个地方存疑，1、是否冲突的时间、数量、价格必须是数值变量（目前是）；2、如果存在两个或更多时间、数量、价格冲突，规则是否冲突（目前不冲突）。
-    if cons1_value == cons2_value:
-        return False, {}
-    general_diff = False  # 是否是通用的key不同
-    other_diff_idx = []  # 不同的key的index
-    for vi, v1 in enumerate(cons1_value):
-        v2 = cons2_value[vi]
-        if v1 != v2: 
-            # 时间、数量、价格不同，并且是数值型变量
-            if (is_time_key(cons1_keys[vi]) or is_num_key(cons1_keys[vi]) or is_price_key(cons1_keys[vi])):
-                if (isinstance(v1, list) or len(re.findall(r"\d+", v1)) > 0) and (isinstance(v2, list) or len(re.findall(r"\d+", v2)) > 0):
+    try:
+        # Validate all inputs
+        for value in cons1_value + cons2_value:
+            validate_input(value)
+
+        # Check for equality to quickly return if no conflict
+        if cons1_value == cons2_value:
+            return False, {}
+
+        general_diff = False
+        other_diff_idx = []
+        for vi, v1 in enumerate(cons1_value):
+            v2 = cons2_value[vi]
+            if v1 != v2:
+                if (is_time_key(cons1_keys[vi]) or is_num_key(cons1_keys[vi]) or is_price_key(cons1_keys[vi])):
+                    if (
+                        safe_regex_match(r"\\d+", v1) and
+                        safe_regex_match(r"\\d+", v2)
+                    ):
+                        other_diff_idx.append(vi)
+                        continue
+                    else:
+                        general_diff = True
+                        break
+                elif cons1_keys[vi] not in general_keys:
                     other_diff_idx.append(vi)
                     continue
                 else:
                     general_diff = True
                     break
-            elif cons1_keys[vi] not in general_keys:
-                other_diff_idx.append(vi)
-                continue
-            # 枚举约束，通用key不同
-            else:
-                general_diff = True
-                break
-    
-    if general_diff or len(other_diff_idx) >= 2:
-        # 不冲突
-        return False, {}
-    else:
-        # 冲突
-        reason = f"规则{id1}和{id2}的结果相同，但存在互相冲突的约束：对规则{id1}，"
-        for idx in other_diff_idx:
-            reason += f"{cons1_keys[idx]}{' ' + ' '.join(cons1_value[idx]) if isinstance(cons1_value[idx], list) else '为' + cons1_value[idx]}，"
-        reason += f"而对规则{id2}，"
-        for idx in other_diff_idx:
-            reason += f"{cons2_keys[idx]}{' ' + ' '.join(cons2_value[idx]) if isinstance(cons2_value[idx], list) else '为' + cons2_value[idx]}，"
-        reason = f"{reason[:-1]}。"
-        return True, {"rule_ids":[id1, id2], "reason":reason}
 
+        if general_diff or len(other_diff_idx) >= 2:
+            return False, {}
+        else:
+            reason = f"Rule {id1} and {id2} have conflicting constraints: "
+            for idx in other_diff_idx:
+                reason += f"{cons1_keys[idx]} differs with values {cons1_value[idx]} and {cons2_value[idx]} respectively. "
+            return True, {"rule_ids": [id1, id2], "reason": reason}
+    except ValueError as e:
+        return False, {"error": str(e)}
 
 
 def process_result_not_same_key_same(id1, id2, cons1_keys, cons2_keys, cons1_value, cons2_value, general_keys):
