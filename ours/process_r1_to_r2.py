@@ -6,6 +6,24 @@ from ours.process_tco_to_r1 import is_num_key, is_price_key, is_time_key
 from transfer.knowledge_tree import get_constrainted_values, get_constrainted_all_subvalues
 
 
+
+
+def is_time_key(key):
+    if len(key) > 100:  # Arbitrary limit
+        raise ValueError("Key too long for time validation")
+    return "time" in key.lower()
+
+def is_num_key(key):
+    if len(key) > 100:  # Arbitrary limit
+        raise ValueError("Key too long for numeric validation")
+    return "num" in key.lower()
+
+def is_price_key(key):
+    if len(key) > 100:  # Arbitrary limit
+        raise ValueError("Key too long for price validation")
+    return "price" in key.lower()
+
+
 def preprocess(rules, vars):
     to_del = []
     for rule_id in rules:
